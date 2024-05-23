@@ -15,6 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ImageListItem from '@mui/material/ImageListItem';
 import CustomCarousel from "@/components/Carousel";
+import CustomCardList from "@/components/CardList";
 
 
 export default function Home() {
@@ -41,7 +42,7 @@ export default function Home() {
 
 
     return (
-        <main>
+        <main style={{backgroundColor: '#e6dbc9'}}>
             <AppBar position="static" style={{backgroundColor: "black"}}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
@@ -154,6 +155,11 @@ export default function Home() {
                 </Container>
             </AppBar>
             <CustomCarousel/>
+            <Container maxWidth="xl">
+                <Box sx={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 2}}>
+                    <CustomCardList/>
+                </Box>
+            </Container>
         </main>
     );
 }
