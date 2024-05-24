@@ -12,7 +12,10 @@ export default function CustomCardList() {
 
     const products = ProductInfos();
     const productCardList = products.map(product => {
-        return <Card sx={{maxWidth: 345}}>
+        return <Card
+            sx={{maxWidth: 345}}
+            key={product.id}
+        >
             <CardMedia
                 component="img"
                 height="140"
@@ -38,7 +41,9 @@ export default function CustomCardList() {
                 </Typography>
             </CardContent>
             <CardActions style={{backgroundColor: '#c9af98'}}>
-                <Button size="small" style={{ backgroundColor: '#3a4660', color: 'white', fontStyle: 'bold', fontSize:'15px'}}>Learn More</Button>
+                <Button size="small"
+                        style={{backgroundColor: '#3a4660', color: 'white', fontStyle: 'bold', fontSize: '15px'}}>Learn
+                    More</Button>
             </CardActions>
         </Card>
     })

@@ -16,11 +16,14 @@ import MenuItem from '@mui/material/MenuItem';
 import ImageListItem from '@mui/material/ImageListItem';
 import CustomCarousel from "@/components/Carousel";
 import CustomCardList from "@/components/CardList";
+import {useEffect} from "react";
 
 
 export default function Home() {
     const pages = ['商品'];
-    const settings = ['個人設置', '登出'];
+    const [settings, setSettings] = React.useState(['登入']);
+    const [clickLoginOrLogout, setClickLoginOrLogout] = React.useState(false);
+
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -38,6 +41,19 @@ export default function Home() {
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
+    };
+
+    const handleProfile = () => {
+        setClickLoginOrLogout((prev) => {
+            const newClickProfile = !prev;
+            if (newClickProfile) {
+                setSettings(['個人設置', '登出']);
+            } else {
+                setSettings(['登入']);
+            }
+            console.log(newClickProfile);
+            return newClickProfile;
+        });
     };
 
 
@@ -123,11 +139,11 @@ export default function Home() {
 
                         {/* --------------------------------------------------------------- */}
                         <Box sx={{flexGrow: 0}}>
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                    <Avatar alt="Remy Sharp" src="/images/avatar.png"/>
-                                </IconButton>
-                            </Tooltip>
+                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                <Avatar alt="Remy Sharp"
+                                        src={clickLoginOrLogout ? "/images/avatar.png" : ""}
+                                />
+                            </IconButton>
                             <Menu
                                 sx={{mt: '45px'}}
                                 id="menu-appbar"
@@ -144,11 +160,23 @@ export default function Home() {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
+                                {
+                                    settings.map((setting) => {
+                                        if (setting === '登入' || setting === '登出') {
+                                            return (
+                                                <MenuItem key={setting} onClick={handleProfile}>
+                                                    <Typography textAlign="center">{setting}</Typography>
+                                                </MenuItem>
+                                            );
+                                        } else {
+                                            return (
+                                                <MenuItem key={setting}>
+                                                    <Typography textAlign="center">{setting}</Typography>
+                                                </MenuItem>
+                                            );
+                                        }
+                                    })
+                                }
                             </Menu>
                         </Box>
                     </Toolbar>
